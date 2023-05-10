@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.keyboard-letter-button {
+    @apply bg-gray-200 hover:bg-gray-400 focus:outline-none text-black rounded-lg
+}
