@@ -10,7 +10,7 @@
             <h2 class="text-2xl font-semibold text-center">Cadastrar</h2>
             @csrf
             <div class="flex items-center justify-center w-full rounded-xl hover:bg-gray-100">
-                <label for="dropzone-file"
+                <label for="input-image"
                     class="flex flex-col items-center justify-center w-full h-56 border rounded-lg cursor-pointer">
                     <div class="flex flex-col items-center justify-center pt-5 pb-6" id="label-text">
                         <i class="fa-regular fa-image text-xl"></i>
