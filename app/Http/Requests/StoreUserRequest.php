@@ -24,8 +24,26 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email|max:255',
-            'password' => 'required|max:255',
+            'password' => 'required|confirmed|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,bmp|max:2048'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.max' => 'O campo nome não pode exceder 255 caracteres.',
+            'email.email' => 'O campo email é invalido',
+            'email.unique' => 'O campo email já foi registrado.',
+            'email.required' => 'O campo email é obrigatório',
+            'email.max' => 'O campo email não pode exceder 255 caracteres.',
+            'password.required' => 'O campo senha é obrigatório.',
+            'password.max' => 'O campo senha não pode exceder 255 caracteres.',
+            'password.confirmed' => 'Os campos das senhas não são iguais.',
+            'image.image' => 'O arquivo enviado não é uma imagem.',
+            'image.mimes' => 'O formato do arquivo enviado não pode ser aceito.',
+            'image.max' => 'O tamanho do arquivo da imagem é muito grande.',
         ];
     }
 }
