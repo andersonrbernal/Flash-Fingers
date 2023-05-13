@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
     public function store(StoreUserRequest $request)
     {
         try {
-            throw new Exception();
             $validatedData = $request->validated();
 
             if ($validatedData['image']) {
@@ -31,7 +27,7 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect()->route('home.index');
+            return redirect()->route('auth.login');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['server' => 'Oops, algo deu errado. Volte mais tarde.'])->withInput();
         }
