@@ -22,7 +22,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
-            $user->password = $validatedData['password'];
+            $user->password = bcrypt($validatedData['password']);
             $user->photo_image_url = $imageName ? $imageName : 'default-avatar.png';
 
             $user->save();
