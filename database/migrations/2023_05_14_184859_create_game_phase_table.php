@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('game_phase', function (Blueprint $table) {
             $table->id();
             $table->integer('phase_number');
+            $table->unsignedBigInteger('theme_id');
             $table->foreign('theme_id')->references('id')->on('game_week_theme');
             $table->timestamps();
         });
