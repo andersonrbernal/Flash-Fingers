@@ -22,7 +22,7 @@ class AuthController extends Controller
 
     public function redirectTo()
     {
-        return route('/');
+        return redirect()->route('home.index');
     }
 
     public function authenticate(Request $request): RedirectResponse
