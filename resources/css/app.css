@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.keyboard-letter-button {
-    @apply bg-gray-200 hover:bg-gray-400 focus:outline-none text-black rounded-lg
+@layer utilities {
+    .keybaord_row {
+        @apply flex justify-center gap-1 my-1
+    }
+    .key {
+        @apply rounded-lg shadow-lg border cursor-pointer select-none
+    }
+    .key.active {
+        @apply text-black bg-white
+    }
 }
