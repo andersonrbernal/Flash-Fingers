@@ -1,4 +1,4 @@
-<nav class="flex justify-between my-4 mx-5 md:mx-10 lg:mx-20">
+<nav class="flex justify-between my-4">
     <h1 class="text-lg">
         <a href="{{ route('home.index') }}">
             <img src="{{ url('/assets/images/flash-fingers-logo.png') }}" alt="logo" class="w-20">
