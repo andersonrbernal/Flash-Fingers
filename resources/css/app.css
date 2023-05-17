@@ -2,13 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+.correct_char {
+    color: lightgreen;
+}
+
+.incorrect_char {
+    color: red;
+}
+
 @layer utilities {
     .keybaord_row {
         @apply flex justify-center gap-1 my-1
     }
+
     .key {
         @apply rounded-lg shadow-lg border cursor-pointer select-none
     }
+
     .key.active {
         @apply text-black bg-white
     }
