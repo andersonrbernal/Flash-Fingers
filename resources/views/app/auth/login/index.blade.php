@@ -3,7 +3,6 @@
 @section('title', 'Página de login')
 
 @section('content')
-    <x-navbar />
     <main class="w-full flex justify-center">
         @error('server')
             <div class="absolute rounded-full border-2 p-2 bg-white border-red-600">
