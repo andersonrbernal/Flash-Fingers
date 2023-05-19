@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <div class="max-w-7xl mx-auto">
+        <x-navbar />
+    </div>
     @yield('content')
     @stack('scripts')
 </body>
