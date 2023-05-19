@@ -6,7 +6,7 @@
     </h1>
     <ul class="relative flex items-center gap-5">
         @if ($authenticated)
-            <img src="assets/images/users/{{ $user->photo_image_url }}" alt="{{ $user->name }}"
+            <img src="{{ URL::to('/') }}/assets/images/users/{{ $user->photo_image_url }}" alt="{{ $user->name }}"
                 class="rounded-full w-12 h-12 object-cover">
             <p> {{ $user->name }} <i class="fa-solid fa-chevron-down text-xs cursor-pointer"></i> </p>
         @endif
