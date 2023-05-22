@@ -25,10 +25,10 @@
     <div class="my-4 px-2">
         <div class="flex justify-center">
             <input type="text" id="inputField" class="px-2 py-1 rounded-full text-black w-full max-w-md my-4"
-                placeholder="Comece a digitar aqui..." oninput="processCurrentText()" onfocus="startGame()">
+                placeholder="Comece a digitar aqui...">
         </div>
         <div class="flex items-center justify-center mb-4">
-            <button id="restart-button" onclick="resetValues()"
+            <button id="restart-button"
                 class="hidden rounded-full py-1 px-3 border border-white text-white active:bg-white active:text-black">
                 Recomeçar
             </button>
@@ -39,5 +39,9 @@
 
 
 @push('scripts')
-    <script src="{{ url('assets/js/game/index.js') }}"></script>
+    <script type="module" src="{{ url('assets/js/game/GameManager.js') }}"></script>
+    <script type="module" src="{{ url('assets/js/game/QuoteManager.js') }}"></script>
+    <script type="module" src="{{ url('assets/js/game/InputManager.js') }}"></script>
+    <script type="module" src="{{ url('assets/js/game/UIManager.js') }}"></script>
+    <script type="module" src="{{ url('assets/js/game/index.js') }}"></script>
 @endpush
