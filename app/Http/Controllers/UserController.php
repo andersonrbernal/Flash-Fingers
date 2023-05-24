@@ -12,7 +12,7 @@ class UserController extends Controller
         try {
             $validatedData = $request->validated();
 
-            if ($validatedData['image']) {
+            if (isset($validatedData['image'])) {
                 $image = $validatedData['image'];
                 $extension = $image->extension();
                 $imageName = md5($image->getClientOriginalName() . strtotime('now') . '.' . $extension);
@@ -29,6 +29,7 @@ class UserController extends Controller
 
             return redirect()->route('auth.login');
         } catch (\Exception $e) {
+            return dd($e);
             return redirect()->back()->withErrors(['server' => 'Oops, algo deu errado. Volte mais tarde.'])->withInput();
         }
     }
