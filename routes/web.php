@@ -13,6 +13,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/auth/signup', [AuthController::class, 'signup'])->name('auth.signup');
 Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/auth/authenticate', [AuthController::class, 'authenticate'])->name('auth.authenticate');
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 # /users
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
