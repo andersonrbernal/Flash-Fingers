@@ -8,7 +8,10 @@
         @if ($authenticated)
             <img src="{{ URL::to('/') }}/assets/images/users/{{ $user->photo_image_url }}" alt="{{ $user->name }}"
                 class="rounded-full w-12 h-12 object-cover">
-            <p> {{ $user->name }} <i class="fa-solid fa-chevron-down text-xs cursor-pointer"></i> </p>
+            <p id="username-dropdown" class="select-none cursor-pointer">
+                {{ $user->name }} <i class="fa-solid fa-chevron-down text-xs cursor-pointer"></i>
+            </p>
+            <x-navbar-user-menu profile='/' settings='' logout="{{ route('auth.logout') }}" />
         @endif
         @guest
             <li>
@@ -24,3 +27,9 @@
         @endguest
     </ul>
 </nav>
+
+@if ($authenticated)
+    @push('scripts')
+        <script src="{{ url('assets/js/navbar/index.js') }}"></script>
+    @endpush
+@endif
