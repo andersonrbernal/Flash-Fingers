@@ -1,5 +1,5 @@
 @props(['profile', 'settings', 'logout'])
-<ul class="absolute right-0 top-14 bg-gray-100 bg-opacity-90 p-1">
+<ul id="navbar-user-menu" class="absolute hidden right-0 top-14 bg-gray-100 bg-opacity-90 p-1">
     <li class="px-1">
         <a href="{{ $profile }}">
             <i class="fa-regular fa-user"></i> Perfil
