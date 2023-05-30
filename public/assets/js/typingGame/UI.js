@@ -126,7 +126,7 @@ export class UI {
     /**
      * Shows the restart button.
      */
-    showRestartButton() {
+    showRestartPhaseButton() {
         this.restartPhaseButtonElement.classList.remove('hidden');
         this.restartPhaseButtonElement.classList.add('block');
     }
