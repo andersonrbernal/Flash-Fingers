@@ -6,14 +6,16 @@ export class UI {
         typingGameElement,
         typingGamePresentationElement,
         currentPhaseIndexElement,
+        incorrectWordsElement,
+        correctWordsElement,
         phaseTitleElement,
         restartPhaseButtonElement,
         nextPhaseButtonElement,
         playGameButtonElement,
         timeLeftElement,
         WPAElement,
+        keystrokesElement,
         accuracyElement,
-        errorElement,
     }) {
         this.inputElement = inputElement;
         this.quoteElement = quoteElement;
@@ -28,7 +30,9 @@ export class UI {
         this.timeLeftElement = timeLeftElement;
         this.WPAElement = WPAElement;
         this.accuracyElement = accuracyElement;
-        this.errorElement = errorElement;
+        this.keystrokesElement = keystrokesElement;
+        this.incorrectWordsElement = incorrectWordsElement
+        this.correctWordsElement = correctWordsElement
     }
 
     /**
@@ -61,11 +65,26 @@ export class UI {
     }
 
     /**
-     * Updates the error element with the total of errors. 
+     * Updates the correct words element with the total of errors. 
      * @param {totalErrors} totalErrors 
      */
-    updateError(totalErrors) {
-        this.errorElement.textContent = totalErrors;
+    updateCorrectWords(correctWords) {
+        this.correctWordsElement.textContent = correctWords;
+    }
+
+    /**
+     * Updates the incorrect words element with the total of errors. 
+     */
+    updateIncorrectWords(incorrectWords) {
+        this.incorrectWordsElement.textContent = incorrectWords;
+    }
+
+    /**
+     * Updates the keystrokes element with the keystrokes number.
+     * @param {keystrokes} keystrokes 
+     */
+    updateKeystrokes(keystrokes) {
+        this.keystrokesElement.textContent = keystrokes;
     }
 
     /**
@@ -97,6 +116,49 @@ export class UI {
      */
     updateAccuracy(accuracy) {
         this.accuracyElement.textContent = Math.floor(accuracy) + '%';
+    }
+
+    /**
+     * Updates statistics on the UI.
+     */
+    updateStatistics({
+        rightWords,
+        wrongWords,
+        wordsPerMinute,
+        accuracy,
+        keystrokes,
+    }) {
+        this.updateCorrectWords(rightWords)
+        this.updateIncorrectWords(wrongWords)
+        this.updateWPA(wordsPerMinute)
+        this.updateAccuracy(accuracy)
+        this.updateKeystrokes(keystrokes)
+    }
+
+    /**
+     * It will create an span element for each caracter that was passed in the inputCaracters parameter.
+     * The incorrect class and correct class are CSS classes for styling those caracters.
+     * @param {quoteSpans} quoteSpans An array of spans.
+     * @param {inputCaracters} inputCaracters The caracters that will be shown on the spans.
+     * @param {CSSclasses} classes CSS classes for incorrect char, and correct char.
+     */
+    handleQuoteSpans(quoteSpans, inputCaracters, {
+        incorrectClass, correctClass
+    }) {
+        quoteSpans.forEach((char, index) => {
+            let typedChar = inputCaracters[index]
+
+            if (typedChar == null) {
+                return char.classList.remove(incorrectClass, correctClass)
+            }
+            if (typedChar === char.innerText) {
+                char.classList.remove(incorrectClass)
+                return char.classList.add(correctClass)
+            }
+
+            char.classList.remove(correctClass)
+            char.classList.add(incorrectClass)
+        })
     }
 
     /**
@@ -219,7 +281,8 @@ export class UI {
     resetAll() {
         this.resetInput();
         this.updateAccuracy(0);
-        this.updateError('0');
+        this.updateCorrectWords('0');
+        this.updateIncorrectWords('0');
         this.updateQuote('');
         this.updateTimer(0);
         this.updateWPA('0');
