@@ -11,9 +11,9 @@ export default {
         'xs': '420px'
       },
       colors: {
-        'primary': '#0468D7',
+        'primary': '#0736ED',
         'green-sea': '#14C2AD',
-        'violet': '#833EF2',
+        'violet': '#7013F2',
       }
     },
   },
