@@ -8,6 +8,8 @@ export default {
   theme: {
     extend: {
       screens: {
+        '3xs': '240px',
+        '2xs': '360px',
         'xs': '420px'
       },
       colors: {
