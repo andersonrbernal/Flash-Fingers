@@ -23,7 +23,10 @@ class UserController extends Controller
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
             $user->password = bcrypt($validatedData['password']);
-            $user->photo_image_url = $imageName ? $imageName : 'default-avatar.png';
+
+            if (isset($imageName)) {
+                $user->photo_image_url = $imageName;
+            }
 
             $user->save();
 
