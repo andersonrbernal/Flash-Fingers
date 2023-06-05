@@ -68,17 +68,20 @@ export class Game {
         if (userFinishedQuote) {
 
             const { rightWords, wrongWords } = this.countWords(text, this.currentQuote)
-            this.wordCount += text.trim().split(' ').length
+            const wordCount = text.trim().split(' ').length
+            this.wordCount += wordCount
             this.correctWords += rightWords
             this.incorrectWords += wrongWords
 
-            this.ui.updateStatistics({
+            const statistics = {
                 rightWords: this.correctWords,
                 wrongWords: this.incorrectWords,
                 keystrokes: this.keystrokes,
                 wordsPerMinute: this.wordsPerMinute,
                 accuracy: this.accuracy
-            })
+            }
+
+            this.ui.updateStatistics(statistics)
 
             if (currentQuoteIsLastQuote) {
                 const timeLimit = this.currentPhase.timeLimit
@@ -86,13 +89,9 @@ export class Game {
                 this.wordsPerMinute = Math.round((this.keystrokes / 5) / minutesElapsed)
                 this.accuracy += (this.correctWords / this.wordCount) * 100
 
-                this.ui.updateStatistics({
-                    rightWords: this.correctWords,
-                    wrongWords: this.incorrectWords,
-                    keystrokes: this.keystrokes,
-                    wordsPerMinute: this.wordsPerMinute,
-                    accuracy: this.accuracy
-                })
+                statistics.wordsPerMinute = this.wordsPerMinute
+                statistics.accuracy = this.accuracy
+                this.ui.updateStatistics(statistics)
 
                 this.wordCount = 0
                 this.correctWords = 0
