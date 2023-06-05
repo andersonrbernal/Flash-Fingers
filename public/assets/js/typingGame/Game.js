@@ -9,14 +9,12 @@ export class Game {
         this.timer = null
         this.timeLeft = 0
 
-        this.statistics = {
-            wordCount: 0,
-            correctWords: 0,
-            incorrectWords: 0,
-            accuracy: 0,
-            keystrokes: 0,
-            wordsPerMinute: 0,
-        }
+        this.wordCount = 0
+        this.correctWords = 0
+        this.incorrectWords = 0
+        this.accuracy = 0
+        this.keystrokes = 0
+        this.wordsPerMinute = 0
     }
 
     startGame() {
@@ -39,7 +37,13 @@ export class Game {
         this.accuracy = 0
         this.keystrokes = 0
         this.wordsPerMinute = 0
-        this.ui.updateStatistics(this.statistics)
+        this.ui.updateStatistics({
+            rightWords: this.correctWords,
+            wrongWords: this.incorrectWords,
+            keystrokes: this.keystrokes,
+            wordsPerMinute: this.wordsPerMinute,
+            accuracy: this.accuracy
+        })
         this.ui.updateCurrentPhaseIndex(this.currentPhaseIndex + 1)
         this.ui.updateQuote(this.currentQuote)
     }
