@@ -31,12 +31,7 @@ export class Game {
         this.ui.updateIncorrectWords(0)
         this.ui.updateWPA(0)
         this.ui.updateAccuracy(0)
-        this.wordCount = 0
-        this.correctWords = 0
-        this.incorrectWords = 0
-        this.accuracy = 0
-        this.keystrokes = 0
-        this.wordsPerMinute = 0
+        this.resetStatistics()
         this.ui.updateStatistics({
             rightWords: this.correctWords,
             wrongWords: this.incorrectWords,
@@ -92,13 +87,7 @@ export class Game {
                 statistics.wordsPerMinute = this.wordsPerMinute
                 statistics.accuracy = this.accuracy
                 this.ui.updateStatistics(statistics)
-
-                this.wordCount = 0
-                this.correctWords = 0
-                this.incorrectWords = 0
-                this.accuracy = 0
-                this.keystrokes = 0
-                this.wordsPerMinute = 0
+                this.resetStatistics()
 
                 return currentPhaseIsLastPhase ? this.finishGame() : this.finishPhase()
             }
@@ -153,6 +142,15 @@ export class Game {
         this.updateQuoteIndex(0)
         this.updateQuote(this.currentPhase.quotes[this.currentQuoteIndex])
         this.ui.updateCurrentPhaseIndex(this.currentPhaseIndex + 1)
+    }
+
+    resetStatistics() {
+        this.wordCount = 0
+        this.correctWords = 0
+        this.incorrectWords = 0
+        this.accuracy = 0
+        this.keystrokes = 0
+        this.wordsPerMinute = 0
     }
 
     resetPhase() {
