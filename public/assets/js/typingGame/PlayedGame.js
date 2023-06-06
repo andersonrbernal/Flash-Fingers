@@ -1,20 +1,4 @@
 export class PlayedGame {
-    constructor({
-        wordsPerMinute,
-        keystrokes,
-        correctWords,
-        incorrectWords,
-        accuracy,
-        user_id
-    }) {
-        this.wordsPerMinute = wordsPerMinute;
-        this.keystrokes = keystrokes;
-        this.correctWords = correctWords;
-        this.incorrectWords = incorrectWords;
-        this.accuracy = accuracy;
-        this.user_id = user_id;
-    }
-
     static calculateAverage(playedPhasesResults = []) {
         if (playedPhasesResults.length === 0) return null;
 
@@ -47,5 +31,17 @@ export class PlayedGame {
             averageIncorrectWords: Math.round(averageIncorrectWords),
             averageAccuracy: Math.round(averageAccuracy)
         };
+    }
+
+    static getCookie(cookieName) {
+        let cookie = {}
+        const cookies = document.cookie.split(';')
+
+        cookies.forEach(cookieValue => {
+            let [key, value] = cookieValue.split('=')
+            cookie[key.trim()] = value
+        })
+
+        return cookie[cookieName]
     }
 }
