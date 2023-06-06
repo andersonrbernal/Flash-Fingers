@@ -8,6 +8,7 @@
     @if (auth()->check())
         <meta name="user-id" content="{{ auth()->user()->id }}">
     @endif
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('head')
     @vite('resources/css/app.css')
     @vite('node_modules/@fortawesome/fontawesome-free/css/all.min.css')
