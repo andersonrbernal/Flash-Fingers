@@ -38,5 +38,6 @@
     <script type="module" src="{{ url('assets/js/typingGame/UI.js') }}"></script>
     <script type="module" src="{{ url('assets/js/typingGame/Phase.js') }}"></script>
     <script type="module" src="{{ url('assets/js/typingGame/Game.js') }}"></script>
+    <script type="module" src="{{ url('assets/js/typingGame/PlayedGame.js') }}"></script>
     <script type="module" src="{{ url('assets/js/typingGame/index.js') }}"></script>
 @endpush
