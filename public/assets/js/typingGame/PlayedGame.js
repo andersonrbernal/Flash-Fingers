@@ -25,11 +25,11 @@ export class PlayedGame {
         const averageAccuracy = sumAccuracy / totalPhases;
 
         return {
-            averageWordsPerMinute: Math.round(averageWordsPerMinute),
-            averageKeystrokes: Math.round(averageKeystrokes),
-            averageCorrectWords: Math.round(averageCorrectWords),
-            averageIncorrectWords: Math.round(averageIncorrectWords),
-            averageAccuracy: Math.round(averageAccuracy)
+            wordsPerMinute: Math.round(averageWordsPerMinute),
+            keystrokes: Math.round(averageKeystrokes),
+            correctWords: Math.round(averageCorrectWords),
+            incorrectWords: Math.round(averageIncorrectWords),
+            accuracy: Math.round(averageAccuracy)
         };
     }
 
@@ -43,5 +43,38 @@ export class PlayedGame {
         })
 
         return cookie[cookieName]
+    }
+
+    static async save(results, { user_id = null, csrfToken = null }) {
+        if (!user_id) return { data: null, error: 'No user id provided.' }
+        if (!csrfToken) return { data: null, error: 'No CSRF token provided.' }
+
+        try {
+            const uri = '/played-game'
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text-plain, */*',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': csrfToken
+            }
+            const body = {
+                'wordsPerMinute': results.wordsPerMinute,
+                'keystrokes': results.keystrokes,
+                'correctWords': results.correctWords,
+                'incorrectWords': results.incorrectWords,
+                'accuracy': results.accuracy,
+                'user_id': parseInt(user_id)
+            }
+            console.log(body)
+            const options = { body: JSON.stringify(body), method: 'POST', headers: headers, mode: 'cors' }
+
+            const response = await fetch(uri, options)
+            console.log(response)
+            const data = await response.json()
+
+            return { data: data, error: null };
+        } catch (error) {
+            return { data: null, error: error };
+        }
     }
 }

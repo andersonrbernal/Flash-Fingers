@@ -1,3 +1,5 @@
+import { PlayedGame } from "./PlayedGame.js"
+
 export class Game {
     constructor(phases, ui) {
         this.phases = phases
@@ -15,6 +17,8 @@ export class Game {
         this.accuracy = 0
         this.keystrokes = 0
         this.wordsPerMinute = 0
+
+        this.results = []
     }
 
     startGame() {
@@ -41,6 +45,7 @@ export class Game {
         })
         this.ui.updateCurrentPhaseIndex(this.currentPhaseIndex + 1)
         this.ui.updateQuote(this.currentQuote)
+        this.ui.inputElement.focus()
     }
 
     processInput() {
@@ -55,7 +60,7 @@ export class Game {
         this.handleEndgame(inputValue)
     }
 
-    handleEndgame(text) {
+    async handleEndgame(text) {
         const currentQuoteIsLastQuote = this.currentPhase.quotes.length - 1 === this.currentQuoteIndex
         const currentPhaseIsLastPhase = this.phases.length - 1 === this.currentPhaseIndex
         const userFinishedQuote = text.length === this.currentQuote.length
@@ -87,9 +92,23 @@ export class Game {
                 statistics.wordsPerMinute = this.wordsPerMinute
                 statistics.accuracy = this.accuracy
                 this.ui.updateStatistics(statistics)
-                this.resetStatistics()
+                this.results.push(statistics)
 
-                return currentPhaseIsLastPhase ? this.finishGame() : this.finishPhase()
+                if (currentPhaseIsLastPhase) {
+                    const metaUserId = document.querySelector('meta[name="user-id"]')
+                    if (metaUserId) {
+                        const userId = metaUserId.getAttribute('content')
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+
+                        const resultsAvarage = PlayedGame.calculateAverage(this.results)
+                        const { data, error } = await PlayedGame.save(resultsAvarage, {
+                            user_id: +userId, csrfToken: csrfToken
+                        })
+                        console.log(data, error)
+                    }
+
+                    return this.finishGame()
+                } else return this.finishPhase()
             }
 
             return this.finishQuote()
@@ -181,6 +200,7 @@ export class Game {
     }
 
     finishGame() {
+        this.results = []
         clearInterval(this.timer)
         this.ui.updateTimer(0)
         this.ui.disableInput()
